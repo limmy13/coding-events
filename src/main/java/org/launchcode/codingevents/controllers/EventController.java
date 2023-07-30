@@ -1,6 +1,7 @@
 package org.launchcode.codingevents.controllers;
 
 
+import org.launchcode.codingevents.models.Event;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,16 +16,10 @@ import java.util.List;
 public class EventController {
 
 
-    private static List<String> events = new ArrayList<>();
+    private static List<Event> events = new ArrayList<>();
 
     @GetMapping
     public String displayAllEvents(Model model) {
-//        List<String> events = new ArrayList<>();
-//        events.add("Code With Pride");
-//        events.add("Strange Loop");
-//        events.add("Apple WWDC");
-//        events.add("SpringOne Platform");
-//        model.addAttribute("events", events);
         model.addAttribute("events" , events);
         return "events/index";
     }
@@ -36,7 +31,7 @@ public class EventController {
 
     @PostMapping("create") // lives at /events/create (ok to have name twice since they handle two different requests
     public String createEvent(@RequestParam String eventName) {
-        events.add(eventName);
+        events.add(new Event(eventName));
        return "redirect:"; //return a redirect response, makes browser go to different page, aka the root path
     }
 
