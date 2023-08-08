@@ -1,42 +1,39 @@
 package org.launchcode.codingevents.models;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Objects;
+
 
 public class Event {
 
     private int id;
     private static int nextId = 1;
 
-    @NotBlank(message = "Name is required.")
-    @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters.")
+    @NotBlank(message = "Name is required")
+    @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")
     private String name;
 
     @Size(max = 500, message = "Description too long!")
     private String description;
 
-    @NotBlank(message = "Email is required.")
+    @NotBlank(message = "Email is required")
     @Email(message = "Invalid email. Try again.")
     private String contactEmail;
 
-    @NotBlank(message = "Location cannot be left blank.")
-    private String location;
+    private EventType type;
 
-    @AssertTrue(message="Attendees must register for the event.")
-    private boolean registration;
-
-    @Positive(message="Number of attendees must be one or more.")
-    private int numberOfAttendees;
-
-    public Event() {}
-    public Event(String name, String description, String contactEmail, String location, int numberOfAttendees, boolean registration) {
+    public Event(String name, String description, String contactEmail, EventType type) {
+        this();
         this.name = name;
         this.description = description;
-        this.id = nextId;
         this.contactEmail = contactEmail;
-        this.location = location;
-        this.numberOfAttendees = numberOfAttendees;
-        this.registration = registration;
+        this.type = type;
+    }
+
+    public Event() {
+        this.id = nextId;
         nextId++;
     }
 
@@ -64,39 +61,21 @@ public class Event {
         this.contactEmail = contactEmail;
     }
 
-    public String getLocation() {
-        return location;
+    public EventType getType() {
+        return type;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public int getNumberOfAttendees() {
-        return numberOfAttendees;
-    }
-
-    public void setNumberOfAttendees(int numberOfAttendees) {
-        this.numberOfAttendees = numberOfAttendees;
-    }
-
-    public boolean isRegistration() {
-        return registration;
-    }
-
-    public void setRegistration(boolean registration) {
-        this.registration = registration;
+    public void setType(EventType type) {
+        this.type = type;
     }
 
     public int getId() {
         return id;
     }
 
-
     @Override
     public String toString() {
         return name;
-
     }
 
     @Override
@@ -104,13 +83,11 @@ public class Event {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Event event = (Event) o;
-        return getId() == event.getId();
+        return id == event.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId());
+        return Objects.hash(id);
     }
-
-
 }
