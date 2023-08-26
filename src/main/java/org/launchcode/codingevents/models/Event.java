@@ -5,9 +5,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Objects;
 
-public class Event {
+public class Event extends AbstractEntity {
 
-    private int id;
+
     private static int nextId = 1;
 
     @NotBlank
@@ -63,9 +63,7 @@ public class Event {
         this.type = type;
     }
 
-    public int getId() {
-        return id;
-    }
+
 
 
     @Override
@@ -74,18 +72,7 @@ public class Event {
 
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Event event = (Event) o;
-        return getId() == event.getId();
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId());
-    }
 
 
 }
